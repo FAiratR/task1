@@ -1,10 +1,6 @@
 package org.example;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
 import java.util.*;
 
 public class TestRunner {
@@ -22,14 +18,12 @@ public class TestRunner {
         return res;
     }
 
-    public static Map<String, String> runTests(Class testClass) throws InvocationTargetException, IllegalAccessException, NoSuchFieldException {
         Method[] methods = testClass.getDeclaredMethods();
         Map<String, String> resultTests = new HashMap<>();
         int beforeSuiteCnt = 0;
         int afterSuiteCnt = 0;
         Method beforeSuite = null;
         Method afterSuite = null;
-        Tests obj = new Tests();
 
         for (Method m : methods) {
             if (m.isAnnotationPresent(BeforeSuite.class)) {
@@ -118,7 +112,6 @@ public class TestRunner {
                     arguments = appendValue(arguments, parseStr(pars[k], p.getType().getName()));
                     k++;
                 }
-
                 m.invoke(obj, arguments);
                 resultTests.put(m.getName(), " выполнена");
             } catch (IllegalAccessException e) {
