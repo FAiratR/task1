@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-        Map<String, String> resultTests = new HashMap<>();
+    public static void main(String[] args) throws IllegalAccessException, InstantiationException {
+    Map<String, String> resultTests = new HashMap<>();
         Class<Tests> tests = Tests.class;
         resultTests = TestRunner.runTests(Tests.class);
         System.out.println("----- Результаты теста: "+System.lineSeparator()+resultTests.toString().replace(",",","+System.lineSeparator()));

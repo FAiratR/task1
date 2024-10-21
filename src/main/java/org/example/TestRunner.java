@@ -1,6 +1,10 @@
 package org.example;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 import java.util.*;
 
 public class TestRunner {
@@ -18,12 +22,14 @@ public class TestRunner {
         return res;
     }
 
+    public static Map<String, String> runTests(Class testClass) throws IllegalAccessException, InstantiationException {
         Method[] methods = testClass.getDeclaredMethods();
         Map<String, String> resultTests = new HashMap<>();
         int beforeSuiteCnt = 0;
         int afterSuiteCnt = 0;
         Method beforeSuite = null;
         Method afterSuite = null;
+        Object obj = testClass.newInstance();
 
         for (Method m : methods) {
             if (m.isAnnotationPresent(BeforeSuite.class)) {
